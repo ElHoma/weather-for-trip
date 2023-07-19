@@ -3,12 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
+    <title>Weather Forecast</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
+    <link rel="stylesheet" href="./partials/css/styles.css" />
   </head>
   <body>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/example.html"></include>
+    <div class="main-container">
+      <div class="container">
+        <include src="./partials/html/mainPage.html"></include>
+        <include src="./partials/html/modal.html"></include>
+      </div>
+      <div class="img"></div>
+      <div class="weather-for-day">
+        <include src="./partials/html/weatherTimer.html"></include>
+      </div>
+    </div>
+
+    <script type="module" src="./partials/js/use-modal.js"></script>
+    <script type="module" src="./partials/js/renderWeather.js"></script>
+    <script src="./partials/js/weatherTimer.js"></script>
   </body>
 </html>
