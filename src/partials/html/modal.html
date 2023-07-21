@@ -3,22 +3,24 @@
     <h2>Create trip</h2>
     <form class="modal-form">
       <div class="form-item">
-        <label class="form-city"> City </label>
+        <label class="form-label form-city"> City </label>
         <select class="citys-list"></select>
       </div>
 
       <div class="form-item">
-        <label class="form-start-date">Start date</label>
+        <label class="form-label form-start-date">Start date</label>
         <input type="date" class="start-date-input" />
       </div>
 
       <div class="form-item">
-        <label class="form-end-date">End date</label>
+        <label class="form-label form-end-date">End date</label>
         <input type="date" class="end-date-input" />
       </div>
 
-      <button class="submit-btn" type="submit">Save</button>
+      <div class="form-btn-container">
+        <button type="button" class="form-btn close-modal-btn">Close</button>
+        <button class="form-btn submit-btn" type="submit">Save</button>
+      </div>
     </form>
-    <button type="button" class="close-modal-btn">Close</button>
   </div>
 </div>

@@ -26,20 +26,15 @@ for (let i = 0; i < cities.length; i++) {
 const startDateInputRef = document.querySelector(`.start-date-input`);
 const endDateInputRef = document.querySelector(`.end-date-input`);
 
-// Отримуємо поточну дату
 const today = new Date();
 
-// Додаємо 15 днів до поточної дати
 const maxDate = new Date(today);
 maxDate.setDate(today.getDate() + 15);
 
-// Форматуємо дату у вигляді "рік-місяць-день"
 const formattedMaxDate = maxDate.toISOString().split('T')[0];
 
-// Форматуємо сьогоднішню дату у вигляді "рік-місяць-день"
 const formattedToday = today.toISOString().split('T')[0];
 
-// Встановлюємо максимальну дату для елемента <input>
 startDateInputRef.setAttribute('max', formattedMaxDate);
 
 startDateInputRef.setAttribute('min', formattedToday);

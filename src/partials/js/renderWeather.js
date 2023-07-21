@@ -1,5 +1,10 @@
 import { fetchTripWeather } from './fetchAPI';
 import { updateTimer } from './weatherTimer';
+import {
+  todayWeatherMarkup,
+  weatherListMarkup,
+  tripListMarkup,
+} from './markup';
 
 const modalFormRef = document.querySelector(`.modal-form`);
 const citySelect = document.querySelector(`.citys-list`);
@@ -10,6 +15,7 @@ const endDateInputRef = document.querySelector(`.end-date-input`);
 const tripListRef = document.querySelector(`.trip-list`);
 const overlayRef = document.querySelector(`.modal-overlay`);
 const currWeatherContainerRef = document.querySelector(`.current-weather`);
+const tripBtnRef = document.querySelector(`.btn-block`);
 
 const API_KEY = `6X4R77NCXD3UAKE2W2ZQTGHCB`;
 let BASE_URL = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/%5bcity%5d/%5bdate1%5d/%5bdate2%5d?unitGroup=metric&include=days&key=${API_KEY}&contentType=json`;
@@ -45,6 +51,24 @@ function getTripWeather(event) {
   renderWeather(updatedBaseUrl);
 
   updateTimer;
+
+  const urlArray = [];
+  urlArray.push(updatedTodayUrl);
+
+  renderTodayLinkWeather(urlArray);
+}
+
+// RENDER RENDER RENDER RENDER RENDER RENDER RENDER
+
+function renderTodayLinkWeather(urlArray) {
+  const liElements = tripListRef.querySelectorAll('li');
+  console.log(liElements);
+
+  for (let i = 0; i < liElements.length; i++) {
+    liElements[i].addEventListener(`click`, () => {
+      renderTodayWeather(urlArray[i]);
+    });
+  }
 }
 
 async function renderWeather(currentUrl) {
@@ -55,53 +79,12 @@ async function renderWeather(currentUrl) {
   );
 }
 
-// RENDER TODAY
-
 async function renderTodayWeather(todayUrl) {
   let todayWeatherObj = await fetchTripWeather(todayUrl);
-  console.log(todayWeatherObj);
+  currWeatherContainerRef.textContent = ``;
+
   currWeatherContainerRef.insertAdjacentHTML(
     'beforeend',
     await todayWeatherMarkup(todayWeatherObj)
   );
-}
-
-// MARKUP MARKUP MARKUP MARKUP
-
-async function todayWeatherMarkup(todayWeatherObj) {
-  const currWeather = await todayWeatherObj;
-  const todayMarkup = currWeather.days
-    .map(options => {
-      const currTemp = options.temp;
-      const currIcon = options.icon;
-      console.log(currIcon);
-
-      return `<img src="./images/weatherIcon/cloudy.png" alt="${currIcon}"/><p>${currTemp}</p>`;
-    })
-    .join(``);
-  return todayMarkup;
-}
-
-async function weatherListMarkup(weatherProm) {
-  const weather = await weatherProm;
-
-  const markup = weather.days
-    .map(day => {
-      const maxTemp = day.tempmax;
-      const minTemp = day.tempmin;
-      const weatherIcon = day.icon;
-      const tripDayDate = day.date;
-
-      return `<li class="weather-info">
-    <div class='date'><img src="./images/weatherIcon/cloudy.png" alt="${weatherIcon}"/></div>
-           <div class='icon' ></div>
-           <p class='maxt-mint'>${maxTemp} / ${minTemp}</p></li>`;
-    })
-    .join('');
-  return markup;
-}
-
-function tripListMarkup(city, startDate, endDate) {
-  return `<li class="trip-item"><a href="" class="trip-item-link">
-  <img src="./images/cities/Delhi.jpg" alt="${city}"/><div class="trip-info"><p class="trip-city">${city}</p><p class="trip-time">${startDate} - ${endDate}</p></div></a></li>`;
 }
